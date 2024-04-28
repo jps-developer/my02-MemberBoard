@@ -53,11 +53,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean deleteMember(String loginId) {
-        if(memberRepository.delete(loginId)){
+    public boolean deleteMember(Long id) {
+        if(memberRepository.delete(id)){
             return true;
         }else{
-            throw new MemberNotFoundException(loginId + " : 는 존재 하지않는 회원입니다.");
+            throw new MemberNotFoundException(id + " : 는 존재 하지않는 회원입니다.");
         }
     }
 }

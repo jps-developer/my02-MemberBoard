@@ -1,11 +1,14 @@
 package myproject.memberboard.web.member.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.member.GenderType;
 import myproject.memberboard.domain.member.Member;
 import myproject.memberboard.domain.member.RegionTypeCode;
 import myproject.memberboard.domain.member.service.MemberService;
+import myproject.memberboard.web.member.UpdateMemberForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,6 +49,13 @@ public class MemberController {
         return "/members/member";
     }
 
+    @GetMapping
+    public String allMembers(Model model){
+        List<Member> members = memberService.findAllMember();
+        model.addAttribute("members", members);
+        return "/members/members";
+    }
+
     @GetMapping("/join")
     public String joinForm(@ModelAttribute("member") Member member){
         return "/members/joinMemberForm";
@@ -71,11 +81,20 @@ public class MemberController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id, @Validated @ModelAttribute Member form,
+    public String update(@PathVariable Long id, @Validated @ModelAttribute("member") UpdateMemberForm form,
                          BindingResult bindingResult){
         Member member = new Member();
         member.setRegionTypeCode(form.getRegionTypeCode());
         memberService.updateMember(id, member);
+        return "redirect:/";
+    }
+    @PostMapping("{id}/delete")
+    public String delete(@PathVariable Long id, HttpServletRequest request){
+        memberService.deleteMember(id);
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            session.invalidate();
+        }
         return "redirect:/";
     }
 }

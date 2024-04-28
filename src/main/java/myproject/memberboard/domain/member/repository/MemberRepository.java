@@ -12,5 +12,5 @@ public interface MemberRepository {
     Optional<Member> findById(Long id);
     Optional<Member> findByLoginId(String loginId);
     Optional<Member> update(Long id, Member member);
-    boolean delete(String loginId);
+    boolean delete(Long id);
 }
