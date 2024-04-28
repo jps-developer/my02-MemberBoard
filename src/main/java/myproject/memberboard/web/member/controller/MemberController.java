@@ -1,11 +1,12 @@
 package myproject.memberboard.web.member.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.member.GenderType;
 import myproject.memberboard.domain.member.Member;
 import myproject.memberboard.domain.member.RegionTypeCode;
-import myproject.memberboard.domain.member.repository.MemberRepository;
 import myproject.memberboard.domain.member.service.MemberService;
 import myproject.memberboard.web.member.UpdateMemberForm;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -43,11 +42,18 @@ public class MemberController {
         return regionTypeCodes;
     }
 
-    @GetMapping("/member/{memberId}")
-    public String showMember(@PathVariable Long memberId, Model model){
-        Member member = memberService.findById(memberId);
+    @GetMapping("/member/{id}")
+    public String showMember(@PathVariable Long id, Model model){
+        Member member = memberService.findById(id);
         model.addAttribute("member", member);
-        return "members/member";
+        return "/members/member";
+    }
+
+    @GetMapping
+    public String allMembers(Model model){
+        List<Member> members = memberService.findAllMember();
+        model.addAttribute("members", members);
+        return "/members/members";
     }
 
     @GetMapping("/join")
@@ -63,7 +69,8 @@ public class MemberController {
         }
         memberService.join(member);
         redirectAttributes.addAttribute("id",member.getId());
-        return "redirect:/members/member/{id}";
+        return "redirect:/";
+        //return "redirect:/members/member/{id}";
     }
 
     @GetMapping("/{id}/update")
@@ -74,11 +81,20 @@ public class MemberController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id, @Validated @ModelAttribute Member form,
+    public String update(@PathVariable Long id, @Validated @ModelAttribute("member") UpdateMemberForm form,
                          BindingResult bindingResult){
         Member member = new Member();
         member.setRegionTypeCode(form.getRegionTypeCode());
         memberService.updateMember(id, member);
+        return "redirect:/";
+    }
+    @PostMapping("{id}/delete")
+    public String delete(@PathVariable Long id, HttpServletRequest request){
+        memberService.deleteMember(id);
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            session.invalidate();
+        }
         return "redirect:/";
     }
 }

@@ -1,15 +1,33 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>멤버 정보</title>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
 </head>
 <body>
-<h1>멤버 정보</h1>
-<h2 th:if="${param.status}" th:text="'POST 완료!'"></h2>
-<p th:text="${member.memberName}"></p>
-<p th:text="${member.age}"></p>
 
+<div class="container">
+    <h1>멤버 정보</h1>
+    <h2 th:if="${param.status}" th:text="'POST 완료!'"></h2>
+    <div>
+        <label for="loginId" >회원 ID</label>
+        <input type="text" id="loginId" name="loginId" class="form-control" value="mark" th:value="${member.loginId}" readonly>
+    </div>
+    <div>
+        <label for="memberName" >회원 이름</label>
+        <input type="text" id="memberName" name="memberName" class="form-control" value="mark" th:value="${member.memberName}" readonly>
+    </div>
+    <div>
+        <label for="age" >회원 나이</label>
+        <input type="text" id="age" name="age" class="form-control" value="mark" th:value="${member.age}" readonly>
+    </div>
+</div>
 
 <!-- radio button -->
 <div>
@@ -33,9 +51,27 @@
     </select>
 </div>
 
-<form action="/" method="get">
-    <button type="submit">홈으로</button>
-</form>
+<div class="col">
+    <form action="/" method="get">
+        <button class="w-100 btn btn-dark btn-lg" type="submit">
+            홈으로
+        </button>
+    </form>
+</div>
+<div class="col">
+    <form th:action="@{/members/{id}/update(id=${member.id})}" method="get">
+        <button class="w-100 btn btn-dark btn-lg" type="submit">
+            회원 정보 수정
+        </button>
+    </form>
+</div>
+<div class="col">
+    <form th:action="@{/members/{id}/delete(id=${member.id})}" method="post">
+        <button class="w-100 btn btn-dark btn-lg" type="submit">
+            회원 탈퇴
+        </button>
+    </form>
+</div>
+
 
 </body>
-</html>

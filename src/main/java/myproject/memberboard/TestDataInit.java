@@ -18,6 +18,7 @@ public class TestDataInit {
         Member member = new Member();
         member.setLoginId("test");
         member.setPassword("123");
+        member.setMemberName("mark");
         member.setRegionTypeCode("ETC");
         member.setAge(30);
         member.setGenderType(GenderType.MALE);

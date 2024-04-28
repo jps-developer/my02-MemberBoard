@@ -43,19 +43,18 @@ public class MemoryMemberRepository implements MemberRepository{
     @Override
     public Optional<Member> update(Long id, Member member) {
         if(findById(id).isPresent()){
-            Member existMember = findById(id).get();
-            member.setId(existMember.getId());
-            store.put(member.getId(), member);
-            return Optional.of(member);
+            Member updateMember = findById(id).get();
+            updateMember.setRegionTypeCode(member.getRegionTypeCode());
+            return Optional.of(updateMember);
         }else{
             return Optional.empty();
         }
     }
 
     @Override
-    public boolean delete(String loginId) {
-        if(findByLoginId(loginId).isPresent()){
-            Member removeMember = findByLoginId(loginId).get();
+    public boolean delete(Long id) {
+        if(findById(id).isPresent()){
+            Member removeMember = findById(id).get();
             store.remove(removeMember.getId());
             return  true;
         }else{

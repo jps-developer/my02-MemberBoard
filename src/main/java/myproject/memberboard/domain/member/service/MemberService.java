@@ -11,5 +11,5 @@ public interface MemberService {
     Member findById(Long id);
     Member findByLoginId(String loginId);
     Member updateMember(Long id, Member member);
-    boolean deleteMember(String loginId);
+    boolean deleteMember(Long id);
 }
