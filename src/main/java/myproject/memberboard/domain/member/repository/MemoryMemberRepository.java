@@ -41,9 +41,9 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> update(String loginId, Member member) {
-        if(findByLoginId(loginId).isPresent()){
-            Member existMember = findByLoginId(loginId).get();
+    public Optional<Member> update(Long id, Member member) {
+        if(findById(id).isPresent()){
+            Member existMember = findById(id).get();
             member.setId(existMember.getId());
             store.put(member.getId(), member);
             return Optional.of(member);

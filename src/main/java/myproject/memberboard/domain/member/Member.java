@@ -15,7 +15,8 @@ public class Member {
     @NotNull
     @Min(value =  19)
     Integer age;
-    private String region;
+    private GenderType genderType;
+    private String regionTypeCode;
     @NotBlank
     private String loginId;
     @NotBlank
