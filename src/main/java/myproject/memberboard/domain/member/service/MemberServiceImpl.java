@@ -44,11 +44,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member updateMember(String loginId, Member member) {
-        if(memberRepository.update(loginId, member).isPresent()){
-            return memberRepository.update(loginId, member).get();
+    public Member updateMember(Long id, Member member) {
+        if(memberRepository.update(id, member).isPresent()){
+            return memberRepository.update(id, member).get();
         }else{
-            throw new MemberNotFoundException(loginId + " : 는 존재 하지않는 회원입니다.");
+            throw new MemberNotFoundException(id + " : 는 존재 하지않는 회원입니다.");
         }
     }
 

@@ -17,10 +17,9 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>회원 가입</h2>
+        <h2>로그인</h2>
     </div>
-    <h4 class="mb-3">회원 정보 입력</h4>
-    <form action="" th:action th:object="${member}" method="post">
+    <form action="home.html" th:action th:object="${loginForm}" method="post">
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}"
                th:text="${err}">전체 오류 메시지</p>
@@ -38,41 +37,11 @@
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{password}" />
         </div>
-        <div>
-            <label for="name">이름</label>
-            <input type="text" id="name" th:field="*{memberName}" class="form-control"
-                   th:errorclass="field-error">
-            <div class="field-error" th:errors="*{memberName}" />
-        </div>
-        <div>
-            <div>성별</div>
-            <div th:each="type : ${genderTypes}" class="form-check form-check-inline">
-                <input type="radio" th:field="*{genderType}" th:value="${type.name()}"
-                       class="form-check-input">
-                <label th:for="${#ids.prev('genderType')}" th:text="${type.description}"
-                       class="form-check-label">
-                    남성
-                </label>
-            </div>
-        </div>
-        <div>
-            <div>거주 지역 선택</div>
-            <select th:field="*{regionTypeCode}" class="form-select">
-                <option value="">==거주 지역 선택==</option>
-                <option th:each="region : ${regionTypeCodes}" th:value="${region.code}"
-                        th:text="${region.displayName}">서울</option>
-            </select>
-        </div>
-        <div>
-            <label for="age">나이</label>
-            <input type="text" id="age" th:field="*{age}" class="form-control"
-                   th:errorclass="field-error">
-            <div class="field-error" th:errors="*{age}" />
-        </div>
         <hr class="my-4">
         <div class="row">
             <div class="col">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">회원 가입</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">로그인
+                </button>
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"

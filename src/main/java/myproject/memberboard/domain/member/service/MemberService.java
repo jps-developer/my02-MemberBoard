@@ -10,6 +10,6 @@ public interface MemberService {
     List<Member> findAllMember();
     Member findById(Long id);
     Member findByLoginId(String loginId);
-    Member updateMember(String loginId, Member member);
+    Member updateMember(Long id, Member member);
     boolean deleteMember(String loginId);
 }
