@@ -30,48 +30,60 @@
 </div>
 
 <!-- radio button -->
-<div>
-    <div>성별</div>
-    <div th:each="type : ${genderTypes}" class="form-check form-check-inline">
-        <input type="radio" th:field="${member.genderType}" th:value="${type.name()}"
-               class="form-check-input" disabled>
-        <label th:for="${#ids.prev('genderType')}" th:text="${type.description}"
-               class="form-check-label">
-            MALE
-        </label>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <div>
+                <div>거주 지역 선택</div>
+                <select th:field="${member.regionTypeCode}" class="form-select" disabled>
+                    <option value="">==거주 지역 선택==</option>
+                    <option th:each="region : ${regionTypeCodes}" th:value="${region.code}"
+                            th:text="${region.displayName}">서울</option>
+                </select>
+            </div>
+        </div>
     </div>
-</div>
 
-<div>
-    <div>거주 지역 선택</div>
-    <select th:field="${member.regionTypeCode}" class="form-select" disabled>
-        <option value="">==거주 지역 선택==</option>
-        <option th:each="region : ${regionTypeCodes}" th:value="${region.code}"
-                th:text="${region.displayName}">서울</option>
-    </select>
-</div>
+    <div>
+        <div>성별</div>
+        <div th:each="type : ${genderTypes}" class="form-check form-check-inline">
+            <input type="radio" th:field="${member.genderType}" th:value="${type.name()}"
+                   class="form-check-input" disabled>
+            <label th:for="${#ids.prev('genderType')}" th:text="${type.description}"
+                   class="form-check-label">
+                MALE
+            </label>
+        </div>
+    </div>
 
-<div class="col">
-    <form action="/" method="get">
-        <button class="w-100 btn btn-dark btn-lg" type="submit">
-            홈으로
-        </button>
-    </form>
-</div>
-<div class="col">
-    <form th:action="@{/members/{id}/update(id=${member.id})}" method="get">
-        <button class="w-100 btn btn-dark btn-lg" type="submit">
-            회원 정보 수정
-        </button>
-    </form>
-</div>
-<div class="col">
-    <form th:action="@{/members/{id}/delete(id=${member.id})}" method="post">
-        <button class="w-100 btn btn-dark btn-lg" type="submit">
-            회원 탈퇴
-        </button>
-    </form>
-</div>
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <form action="/" method="get">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                    홈으로
+                </button>
+            </form>
+        </div>
 
 
+        <div class="col">
+            <form th:action="@{/members/{id}/update(id=${member.id})}" method="get">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                    회원 정보 수정
+                </button>
+            </form>
+        </div>
+
+        <div class="col">
+            <form th:action="@{/members/{id}/delete(id=${member.id})}" method="post">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">
+                    회원 탈퇴
+                </button>
+            </form>
+        </div>
+    </div>
+    <hr class="my-4">
+</div>
 </body>
