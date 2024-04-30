@@ -1,4 +1,4 @@
-package myproject.memberboard.web.login;
+package myproject.memberboard.web.form;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;

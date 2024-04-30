@@ -31,6 +31,7 @@ public class HomeController {
         }
 
         model.addAttribute("member", loginMember);
+        log.info("login Home Member={}",loginMember);
         return "loginHome";
     }
 }

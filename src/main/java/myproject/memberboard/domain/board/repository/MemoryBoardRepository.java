@@ -45,6 +45,7 @@ public class MemoryBoardRepository implements BoardRepository{
             Board updateBoard = findByAuthor(author).get();
             updateBoard.setTitle(param.getTitle());
             updateBoard.setContents(param.getContents());
+            updateBoard.setBoardTypeCode(param.getBoardTypeCode());
             return Optional.of(updateBoard);
         }else{
             return Optional.empty();

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Member {
 
-    private Long id;
+    private Long memberId;
     @NotBlank
     private String memberName;
     @NotNull

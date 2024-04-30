@@ -8,7 +8,7 @@ import myproject.memberboard.domain.member.GenderType;
 import myproject.memberboard.domain.member.Member;
 import myproject.memberboard.domain.member.RegionTypeCode;
 import myproject.memberboard.domain.member.service.MemberService;
-import myproject.memberboard.web.member.UpdateMemberForm;
+import myproject.memberboard.web.form.UpdateMemberForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,10 +65,11 @@ public class MemberController {
     public String joinMember(@Validated @ModelAttribute Member member, BindingResult bindingResult,
                        RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
+            log.info("errors={}",bindingResult);
             return "/members/joinMemberForm";
         }
         memberService.join(member);
-        redirectAttributes.addAttribute("id",member.getId());
+        //redirectAttributes.addAttribute("id",member.getMemberId());
         return "redirect:/";
         //return "redirect:/members/member/{id}";
     }

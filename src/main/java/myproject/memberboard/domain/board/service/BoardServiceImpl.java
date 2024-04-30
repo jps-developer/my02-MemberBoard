@@ -17,7 +17,7 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
 
     @Override
-    public void post(Board board) {
+    public void create(Board board) {
         boardRepository.save(board);
         log.info("save board={}",board);
     }

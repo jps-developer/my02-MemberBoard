@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col">
         <button class="w-100 btn btn-secondary btn-lg" type="button"
-                th:onclick="|location.href='@{/items}'|">
+                th:onclick="|location.href='@{/boards}'|">
             게시판 관리
         </button>
     </div>
@@ -27,7 +27,7 @@
         </form>
     </div>
     <div class="col">
-        <form th:action="@{/members/member/{id}(id=${member.id})}" method="get">
+        <form th:action="@{/members/member/{id}(id=${member.getMemberId})}" method="get">
             <button class="w-100 btn btn-dark btn-lg" type="submit">
                 MyPage
             </button>

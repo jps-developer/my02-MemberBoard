@@ -9,4 +9,5 @@ public class Board {
     private String author;
     private String title;
     private String contents;
+    private String boardTypeCode;
 }

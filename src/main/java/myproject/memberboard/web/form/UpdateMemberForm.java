@@ -1,4 +1,4 @@
-package myproject.memberboard.web.member;
+package myproject.memberboard.web.form;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
