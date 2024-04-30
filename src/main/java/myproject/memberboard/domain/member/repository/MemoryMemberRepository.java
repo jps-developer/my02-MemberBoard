@@ -56,7 +56,7 @@ public class MemoryMemberRepository implements MemberRepository{
         if(findById(id).isPresent()){
             Member removeMember = findById(id).get();
             store.remove(removeMember.getId());
-            return  true;
+            return true;
         }else{
             return false;
         }

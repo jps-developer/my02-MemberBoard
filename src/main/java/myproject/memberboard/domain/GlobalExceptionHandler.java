@@ -1,5 +1,7 @@
-package myproject.memberboard.domain.member.exception;
+package myproject.memberboard.domain;
 
+import myproject.memberboard.domain.board.BoardNotFoundException;
+import myproject.memberboard.domain.member.exception.MemberNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,6 +15,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleMemberNotFoundException(MemberNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found: " + ex.getMessage());
+    }
+
+    @ExceptionHandler(BoardNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleBoardNotFoundException(MemberNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Board not found: " + ex.getMessage());
     }
 }
 
