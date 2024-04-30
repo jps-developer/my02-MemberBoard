@@ -2,7 +2,6 @@ package myproject.memberboard.domain.member.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.member.Member;
-import myproject.memberboard.domain.member.exception.MemberNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -16,9 +15,9 @@ public class MemoryMemberRepository implements MemberRepository{
 
     @Override
     public void save(Member member) {
-        member.setId(++sequence);
+        member.setMemberId(++sequence);
         log.info("save Member={}",member);
-        store.put(member.getId(), member);
+        store.put(member.getMemberId(), member);
     }
 
     @Override
@@ -29,7 +28,7 @@ public class MemoryMemberRepository implements MemberRepository{
     @Override
     public Optional<Member> findById(Long id) {
         return findAll().stream()
-                .filter(m -> m.getId().equals(id))
+                .filter(m -> m.getMemberId().equals(id))
                 .findAny();
     }
 
@@ -55,8 +54,8 @@ public class MemoryMemberRepository implements MemberRepository{
     public boolean delete(Long id) {
         if(findById(id).isPresent()){
             Member removeMember = findById(id).get();
-            store.remove(removeMember.getId());
-            return  true;
+            store.remove(removeMember.getMemberId());
+            return true;
         }else{
             return false;
         }

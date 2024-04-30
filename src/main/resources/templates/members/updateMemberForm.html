@@ -17,13 +17,13 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>회원 가입</h2>
+        <h2>회원 수정</h2>
     </div>
     <h4 class="mb-3">회원 정보 입력</h4>
     <form action="" th:action th:object="${member}" method="post">
         <div>
             <label for="loginId">로그인 ID</label>
-            <input type="text" id="loginId" th:field="*{loginId}" class="formcontrol"
+            <input type="text" id="loginId" th:field="*{loginId}" class="form-control"
                    th:value="${member.loginId}" readonly>
         </div>
         <div>

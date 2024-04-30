@@ -44,18 +44,19 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member updateMember(Long id, Member member) {
+    public void updateMember(Long id, Member member) {
         if(memberRepository.update(id, member).isPresent()){
-            return memberRepository.update(id, member).get();
+            //return memberRepository.update(id, member).get();
+            log.info("update Member={}",member);
         }else{
             throw new MemberNotFoundException(id + " : 는 존재 하지않는 회원입니다.");
         }
     }
 
     @Override
-    public boolean deleteMember(Long id) {
+    public void deleteMember(Long id) {
         if(memberRepository.delete(id)){
-            return true;
+            log.info("delete Member id={}",id);
         }else{
             throw new MemberNotFoundException(id + " : 는 존재 하지않는 회원입니다.");
         }
