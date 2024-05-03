@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         mav.addObject("errorMessage", ex.getMessage()); // 에러 메시지 전달 (선택적)
         return mav;
     }
-
+    // 발생하는 예외를 화면에 던짐
     @ExceptionHandler(BoardNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleBoardNotFoundException(MemberNotFoundException ex){
