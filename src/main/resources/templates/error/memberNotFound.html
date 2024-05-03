@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 찾을 수 없음</title>
+</head>
+<body>
+<h1>회원 찾을 수 없음</h1>
+<p>죄송합니다. 찾으시는 회원을 찾을 수 없습니다.</p>
+
+<p th:text="${errorMessage}">{{ errorMessage }}</p>
+
+<ul id="additionalInfo">
+</ul>
+
+<a href="/">홈페이지로 돌아가기</a>
+</body>
+</html>
