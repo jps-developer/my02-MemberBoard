@@ -50,6 +50,7 @@
                 <option th:each="type : ${boardTypeCodes}" th:value="${type.code}"
                         th:text="${type.displayName}">배송 문의</option>
             </select>
+            <div class="field-error" th:errors="*{boardTypeCode}" />
         </div>
 
         <hr class="my-4">

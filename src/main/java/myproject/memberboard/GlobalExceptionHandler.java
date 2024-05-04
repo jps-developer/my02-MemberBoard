@@ -1,4 +1,4 @@
-package myproject.memberboard.domain;
+package myproject.memberboard;
 
 import myproject.memberboard.domain.board.BoardNotFoundException;
 import myproject.memberboard.domain.member.exception.MemberNotFoundException;
@@ -19,29 +19,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found: " + ex.getMessage());
     }*/
 
-    @ExceptionHandler(MemberNotFoundException.class) // 상세페이지 에러로 넘어감
+    // 상세페이지 에러로 넘어감, 사실상 거의 사용 안함
+    // ExceptionHandler는 거의 대부분 api예외처리 할때 사용 화면단은 BasicErrorController로 처리
+    @ExceptionHandler(MemberNotFoundException.class)
     public ModelAndView handleMemberNotFoundException(MemberNotFoundException ex) {
         ModelAndView mav = new ModelAndView("error/memberNotFound"); // 에러 페이지 설정
         mav.addObject("errorMessage", ex.getMessage()); // 에러 메시지 전달 (선택적)
         return mav;
     }
     // 발생하는 예외를 화면에 던짐
-    @ExceptionHandler(BoardNotFoundException.class)
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleBoardNotFoundException(MemberNotFoundException ex){
+    public ResponseEntity<String> handleBoardNotFoundException(BoardNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Board not found: " + ex.getMessage());
     }
 }
-
-
-
-/*@ControllerAdvice
-public class GlobalExceptionHandler {
-
-    @ExceptionHandler(MemberNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleMemberNotFoundException(MemberNotFoundException ex) {
-        // 예외를 로깅합니다.
-        logger.error("Member not found: " + ex.getMessage(), ex);
-    }
-}*/
