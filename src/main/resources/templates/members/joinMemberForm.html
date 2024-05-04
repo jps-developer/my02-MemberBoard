@@ -49,11 +49,14 @@
             <div th:each="type : ${genderTypes}" class="form-check form-check-inline">
                 <input type="radio" th:field="*{genderType}" th:value="${type.name()}"
                        class="form-check-input">
+
                 <label th:for="${#ids.prev('genderType')}" th:text="${type.description}"
                        class="form-check-label">
                     남성
                 </label>
+
             </div>
+            <div class="field-error" th:errors="*{genderType}" />
         </div>
         <div>
             <div>거주 지역 선택</div>

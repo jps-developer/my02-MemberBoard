@@ -68,10 +68,19 @@ public class BoardController {
 
     @PostMapping("/create")
     public String createBoard(@Validated @ModelAttribute("board") BoardForm form, BindingResult bindingResult){
+        //특정 필드 예외가 아닌 전체 예외
+        if(form.getTitle() != null && form.getContents() != null){
+            int minlen = form.getTitle().length() + form.getContents().length();
+            if(minlen < 5){
+                bindingResult.reject("totalLenMin", new Object[]{5, minlen}, null);
+            }
+        }
+
         if(bindingResult.hasErrors()){
             log.info("errors={}",bindingResult);
             return "/boards/createBoardForm";
         }
+
         Board board = setBoardByForm(form);
         boardService.create(board);
         return "redirect:/";
