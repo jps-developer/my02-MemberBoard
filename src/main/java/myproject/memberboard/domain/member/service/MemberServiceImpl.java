@@ -17,7 +17,14 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     @Override
     public void join(Member member) {
+        validateDuplicateMember(member.getLoginId());
         memberRepository.save(member);
+    }
+
+    private void validateDuplicateMember(String loginId){
+        memberRepository.findByLoginId(loginId).ifPresent(
+                m -> {throw new IllegalStateException("이미 존재하는 회원입니다.");}
+        );
     }
 
     @Override

@@ -27,7 +27,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String loginV3(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
+    public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult,
                           HttpServletRequest request){
 
         if(bindingResult.hasErrors()){
@@ -46,7 +46,7 @@ public class LoginController {
         }
     }
     @PostMapping("/logout")
-    public String logOutV3(HttpServletRequest request){
+    public String logOut(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session != null){
             session.invalidate();
