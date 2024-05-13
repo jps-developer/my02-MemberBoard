@@ -1,5 +1,6 @@
 package myproject.memberboard;
 
+import jakarta.servlet.http.HttpServletResponse;
 import myproject.memberboard.domain.board.BoardNotFoundException;
 import myproject.memberboard.domain.member.exception.MemberNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -32,5 +35,16 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleBoardNotFoundException(BoardNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Board not found: " + ex.getMessage());
+    }
+
+/*    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleIllegalStateException(IllegalStateException ex) {
+        return "error-400";
+    }*/
+
+    @ExceptionHandler(IllegalStateException.class)
+    public void handleIllegalStateException(IllegalStateException ex, HttpServletResponse response) throws IOException {
+        response.sendError(400, "잘못된 요청입니다.");
     }
 }
