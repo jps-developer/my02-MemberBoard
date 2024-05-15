@@ -17,7 +17,7 @@ import java.util.Optional;
 
 // create table member(member_id long, loginId varchar(50), password varchar(50), name varchar(50), age int, gender varchar(50), region varchar(50));
 @Slf4j
-@Repository
+//@Repository
 @RequiredArgsConstructor
 public class H2DBMemberRepository implements MemberRepository{
     private final DataSource dataSource;
