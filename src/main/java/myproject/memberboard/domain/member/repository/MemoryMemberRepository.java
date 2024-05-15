@@ -2,12 +2,14 @@ package myproject.memberboard.domain.member.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.member.Member;
+import myproject.memberboard.domain.member.exception.MemberNotFoundException;
+import myproject.memberboard.web.form.UpdateMemberForm;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Slf4j
-//@Repository
+@Repository
 public class MemoryMemberRepository implements MemberRepository{
 
     private static Map<Long, Member> store = new HashMap<>();
@@ -40,14 +42,9 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> update(Long id, Member member) {
-        if(findById(id).isPresent()){
-            Member updateMember = findById(id).get();
-            updateMember.setRegionTypeCode(member.getRegionTypeCode());
-            return Optional.of(updateMember);
-        }else{
-            return Optional.empty();
-        }
+    public void update(Long id, UpdateMemberForm updateParam) {
+        Member updateMember = findById(id).get();
+        updateMember.setRegionTypeCode(updateParam.getRegionTypeCode());
     }
 
     @Override

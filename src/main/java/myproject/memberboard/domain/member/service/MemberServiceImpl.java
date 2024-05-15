@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.member.Member;
 import myproject.memberboard.domain.member.exception.MemberNotFoundException;
 import myproject.memberboard.domain.member.repository.MemberRepository;
+import myproject.memberboard.web.form.UpdateMemberForm;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,13 +52,9 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void updateMember(Long id, Member member) {
-        if(memberRepository.update(id, member).isPresent()){
-            //return memberRepository.update(id, member).get();
-            log.info("update Member={}",member);
-        }else{
-            throw new MemberNotFoundException(id + " : 는 존재 하지않는 회원입니다.");
-        }
+    public void updateMember(Long id, UpdateMemberForm updateParam) {
+        memberRepository.update(id, updateParam);
+        log.info("update Member={}",updateParam);
     }
 
     @Override
