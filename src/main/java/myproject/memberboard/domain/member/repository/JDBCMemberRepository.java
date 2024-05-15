@@ -4,11 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.member.GenderType;
 import myproject.memberboard.domain.member.Member;
+import myproject.memberboard.web.form.UpdateMemberForm;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
@@ -74,52 +77,22 @@ public class JDBCMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> update(Long id, Member member){
+    public void update(Long id, UpdateMemberForm updateParam){
 
-        String sql = "update member set region=? where member_id=?";
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try{
-            con = getConnection();
-            pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, member.getRegionTypeCode());
-            pstmt.setLong(2, id);
-            //rs = pstmt.executeQuery();
-            int resultSize = pstmt.executeUpdate();
-            log.info("resultSize={}", resultSize);
-
-            if(resultSize > 0){
-                return findById(id);
-            }else{
-                return Optional.empty();
-            }
-        } catch (SQLException e) {
-            log.error("db error", e);
-            throw exTranslator.translate("update", sql, e);
-        } finally {
-            close(con, pstmt, null);
-        }
+        String sql = "update member set region_type_code= :region_type_code where member_id= :member_id";
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("region_type_code", updateParam.getRegionTypeCode())
+                        .addValue("member_id", id);
+        template.update(sql, param);
     }
 
     @Override
     public boolean delete(Long id){
 
-        String sql = "delete from member where member_id =?";
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        try{
-            con = getConnection();
-            pstmt = con.prepareStatement(sql);
-            pstmt.setLong(1, id);
-            int success = pstmt.executeUpdate();
-            return success > 0;
-        } catch (SQLException e) {
-            log.error("db error", e);
-            throw exTranslator.translate("delete", sql, e);
-        } finally {
-            close(con, pstmt, null);
-        }
+        String sql = "delete from member where member_id = :member_id";
+        Map<String, Object> param = Map.of("member_id", id);
+        template.update(sql, param);
+        return true;
     }
     private RowMapper<Member> memberRowMapper(){
         return BeanPropertyRowMapper.newInstance(Member.class);

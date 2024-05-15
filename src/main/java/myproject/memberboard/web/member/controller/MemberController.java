@@ -82,11 +82,8 @@ public class MemberController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id, @Validated @ModelAttribute("member") UpdateMemberForm form,
-                         BindingResult bindingResult){
-        Member member = new Member();
-        member.setRegionTypeCode(form.getRegionTypeCode());
-        memberService.updateMember(id, member);
+    public String update(@PathVariable Long id, @Validated @ModelAttribute("member") UpdateMemberForm updateParam){
+        memberService.updateMember(id, updateParam);
         return "redirect:/";
     }
     @PostMapping("{id}/delete")

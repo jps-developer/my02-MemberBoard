@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.member.GenderType;
 import myproject.memberboard.domain.member.Member;
+import myproject.memberboard.web.form.UpdateMemberForm;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
@@ -28,7 +29,7 @@ public class SQLExceptionTranslatorMemberRepository implements MemberRepository{
     public void save(Member member){
 
         String sql = "insert into member" +
-                "(member_id, loginId, password, name, age, gender, region)" +
+                "(member_id, login_id, password, name, age, gender, region)" +
                 " values(?, ?, ?, ?, ?, ?, ?)";
 
         Connection con = null;
@@ -113,7 +114,7 @@ public class SQLExceptionTranslatorMemberRepository implements MemberRepository{
         try{
             Member member = new Member();
             member.setMemberId(rs.getLong("member_id"));
-            member.setLoginId(rs.getString("loginId"));
+            member.setLoginId(rs.getString("login_id"));
             member.setPassword(rs.getString("password"));
             member.setMemberName(rs.getString("name"));
             member.setAge(rs.getInt("age"));
@@ -128,7 +129,7 @@ public class SQLExceptionTranslatorMemberRepository implements MemberRepository{
 
     @Override
     public Optional<Member> findByLoginId(String loginId){
-        String sql = "select * from member where loginId = ?";
+        String sql = "select * from member where login_id = ?";
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -153,26 +154,19 @@ public class SQLExceptionTranslatorMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> update(Long id, Member member){
+    public void update(Long id, UpdateMemberForm updateParam){
 
-        String sql = "update member set region=? where member_id=?";
+        String sql = "update member set region_type_code=? where member_id=?";
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try{
             con = getConnection();
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, member.getRegionTypeCode());
+            pstmt.setString(1, updateParam.getRegionTypeCode());
             pstmt.setLong(2, id);
             //rs = pstmt.executeQuery();
-            int resultSize = pstmt.executeUpdate();
-            log.info("resultSize={}", resultSize);
-
-            if(resultSize > 0){
-                return findById(id);
-            }else{
-                return Optional.empty();
-            }
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             log.error("db error", e);
             throw exTranslator.translate("update", sql, e);
