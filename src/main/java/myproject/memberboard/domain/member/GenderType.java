@@ -13,4 +13,7 @@ public enum GenderType {
         return description;
     }
 
+    public String getName() {
+        return this.name();
+    }
 }

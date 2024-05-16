@@ -22,4 +22,6 @@ public class Member {
     private String loginId;
     @NotBlank
     private String password;
+
+
 }
