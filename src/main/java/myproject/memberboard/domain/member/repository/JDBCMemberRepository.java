@@ -14,7 +14,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.JdbcUtils;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -45,6 +47,23 @@ public class JDBCMemberRepository implements MemberRepository{
         Number key = jdbcInsert.executeAndReturnKey(param);
         member.setMemberId(key.longValue());
     }
+/*    @Override
+    public void save(Member member){
+        String sql = "insert into member" +
+                "(login_id, password, member_name, age, gender_type, region_type_code)" +
+                " values(:loginId, :password, :memberName, :age, :genderType, :regionTypeCode)";
+
+        // 열거형을 문자열로 변환하여 저장
+        String genderTypeString = member.getGenderType().toString();
+        member.setGenderType(genderTypeString);
+
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(member);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        template.update(sql, param, keyHolder);
+        Long key = keyHolder.getKey().longValue();
+        member.setMemberId(key);
+
+    }*/
 
     @Override
     public List<Member> findAll(){

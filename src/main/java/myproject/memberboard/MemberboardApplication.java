@@ -3,6 +3,7 @@ package myproject.memberboard;
 import myproject.memberboard.domain.board.repository.BoardRepository;
 import myproject.memberboard.domain.config.JDBCTemplateConfig;
 import myproject.memberboard.domain.config.MemoryRepositoryConfig;
+import myproject.memberboard.domain.config.MybatisConfig;
 import myproject.memberboard.domain.config.SQLExceptionTranslatorConfig;
 import myproject.memberboard.domain.member.repository.JDBCMemberRepository;
 import myproject.memberboard.domain.member.repository.MemberRepository;
@@ -16,7 +17,8 @@ import org.springframework.context.annotation.Profile;
 
 //@Import(MemoryRepositoryConfig.class)
 //@Import(SQLExceptionTranslatorConfig.class)
-@Import(JDBCTemplateConfig.class)
+//@Import(JDBCTemplateConfig.class)
+@Import(MybatisConfig.class)
 @SpringBootApplication(scanBasePackages = "myproject.memberboard.web")
 public class MemberboardApplication {
 
