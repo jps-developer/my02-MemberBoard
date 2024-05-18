@@ -1,20 +1,30 @@
-package myproject.memberboard.domain.member.repository;
+package myproject.memberboard.domain.member.repository.jpa;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import myproject.memberboard.domain.member.Member;
+import myproject.memberboard.domain.member.QMember;
+import myproject.memberboard.domain.member.repository.MemberRepository;
 import myproject.memberboard.web.form.UpdateMemberForm;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-public class JpaMemberRepository implements MemberRepository{
+import static myproject.memberboard.domain.member.QMember.member;
+
+@Transactional
+@Repository
+public class QueryDSLJpaMemberRepository implements MemberRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory query;
 
-    public JpaMemberRepository(EntityManager em) {
+    public QueryDSLJpaMemberRepository(EntityManager em) {
         this.em = em;
+        query = new JPAQueryFactory(em);
     }
 
     @Override
@@ -22,11 +32,19 @@ public class JpaMemberRepository implements MemberRepository{
         em.persist(member);
     }
 
-    @Override
+/*    @Override
     public List<Member> findAll() {
         String jpql = "select m from Member m";
         TypedQuery<Member> query = em.createQuery(jpql, Member.class);
         return query.getResultList();
+    }*/
+
+
+    @Override
+    public List<Member> findAll(){
+        return query.select(member)
+                .from(member)
+                .fetch();
     }
 
     @Override
@@ -35,13 +53,22 @@ public class JpaMemberRepository implements MemberRepository{
         return Optional.ofNullable(member);
     }
 
-    @Override
+/*    @Override
     public Optional<Member> findByLoginId(String loginId) {
 
         TypedQuery<Member> query = em.createQuery("SELECT m FROM Member m WHERE m.loginId = :loginId", Member.class);
         query.setParameter("loginId", loginId);
         Member member = query.getSingleResult();
         return Optional.ofNullable(member);
+    }*/
+
+
+    @Override
+    public Optional<Member> findByLoginId(String loginId) {
+        Member findMember = query.selectFrom(member)
+                            .where(member.loginId.eq(loginId))
+                            .fetchOne();
+        return Optional.ofNullable(findMember);
     }
 
     @Override
