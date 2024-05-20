@@ -2,6 +2,7 @@ package myproject.memberboard.domain.config;
 
 import lombok.RequiredArgsConstructor;
 import myproject.memberboard.domain.board.repository.BoardRepository;
+import myproject.memberboard.domain.board.repository.JDBCBoardRepository;
 import myproject.memberboard.domain.board.repository.MemoryBoardRepository;
 import myproject.memberboard.domain.board.service.BoardServiceImpl;
 import myproject.memberboard.domain.login.LoginService;
@@ -30,7 +31,7 @@ public class JDBCTemplateConfig {
     }
     @Bean
     BoardRepository boardRepository(){
-        return new MemoryBoardRepository();
+        return new JDBCBoardRepository(dataSource);
     }
     @Bean
     BoardServiceImpl boardService(){

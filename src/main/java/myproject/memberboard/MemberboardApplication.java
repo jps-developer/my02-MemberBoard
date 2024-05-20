@@ -14,11 +14,11 @@ import org.springframework.context.annotation.Profile;
 
 //@Import(MemoryRepositoryConfig.class)
 //@Import(SQLExceptionTranslatorConfig.class)
-//@Import(JDBCTemplateConfig.class)
+@Import(JDBCTemplateConfig.class)
 //@Import(MybatisConfig.class)
 //@Import(JpaConfig.class)
 //@Import(SpringDataJpaConfig.class)
-@Import(QueryDSLConfig.class)
+//@Import(QueryDSLConfig.class)
 @SpringBootApplication(scanBasePackages = "myproject.memberboard.web")
 public class MemberboardApplication {
 

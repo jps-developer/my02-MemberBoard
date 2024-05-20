@@ -120,8 +120,7 @@ public class BoardController {
             return "/boards/updateBoardForm";
         }
         String author = boardService.findById(id).getAuthor();
-        Board param = setBoardByForm(form);
-        boardService.updateBoard(author, param);
+        boardService.updateBoard(author, form);
         return "redirect:/";
     }
 
