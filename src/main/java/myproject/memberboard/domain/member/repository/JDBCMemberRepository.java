@@ -1,3 +1,4 @@
+
 package myproject.memberboard.domain.member.repository;
 
 import lombok.RequiredArgsConstructor;
@@ -44,8 +45,10 @@ public class JDBCMemberRepository implements MemberRepository{
     @Override
     public void save(Member member){
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(member);
+        log.info("jdbcInsert key={}", jdbcInsert.executeAndReturnKey(param));
         Number key = jdbcInsert.executeAndReturnKey(param);
         member.setMemberId(key.longValue());
+        //template.getJdbcTemplate().execute("COMMIT");
     }
 /*    @Override
     public void save(Member member){
@@ -101,7 +104,7 @@ public class JDBCMemberRepository implements MemberRepository{
         String sql = "update member set region_type_code= :region_type_code where member_id= :member_id";
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("region_type_code", updateParam.getRegionTypeCode())
-                        .addValue("member_id", id);
+                .addValue("member_id", id);
         template.update(sql, param);
     }
 

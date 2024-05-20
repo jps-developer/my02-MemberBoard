@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.board.Board;
 import myproject.memberboard.domain.board.BoardNotFoundException;
 import myproject.memberboard.domain.board.repository.BoardRepository;
+import myproject.memberboard.web.form.BoardForm;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,12 +47,9 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void updateBoard(String author, Board param) {
-        if(boardRepository.update(author, param).isPresent()){
-            log.info("update Board={}",param);
-        }else{
-            throw new BoardNotFoundException(author + " : 가 작성한 게시판은 존재 하지않습니다.");
-        }
+    public void updateBoard(String author, BoardForm param) {
+        boardRepository.update(author, param);
+        log.info("update Board={}",param);
     }
 
     @Override

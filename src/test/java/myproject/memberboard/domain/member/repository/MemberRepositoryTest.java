@@ -36,9 +36,17 @@ class MemberRepositoryTest {
         memberA.setAge(30);
         memberA.setGenderType(GenderType.MALE);
         memberRepository.save(memberA);
+        log.info("memberRepo={}", memberRepository.findAll().size());
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            log.info("member={}",member.toString());
+        }
+
         //then
         Member findMember = memberRepository.findById(memberA.getMemberId()).get();
         assertThat(findMember.getLoginId()).isEqualTo(memberA.getLoginId());
+        log.info("member id={}, findMember id={}",memberA.getMemberId(), findMember.getMemberId());
+        //assertThat(findMember).isEqualTo(memberA);
     }
 
     @Test
@@ -76,7 +84,7 @@ class MemberRepositoryTest {
     void update() {
         //give
         Member memberA = new Member();
-        memberA.setLoginId("testA");
+        memberA.setLoginId("testB");
         memberA.setPassword("123");
         memberA.setMemberName("mark");
         memberA.setRegionTypeCode("ETC");
@@ -85,6 +93,11 @@ class MemberRepositoryTest {
         memberRepository.save(memberA);
 
         // when
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            log.info("member={}",member.toString());
+        }
+        log.info("memberRepo={}", memberRepository.findAll().size());
         Member saveMember = memberRepository.findByLoginId("testA").get();
         UpdateMemberForm form = new UpdateMemberForm();
         form.setRegionTypeCode("SEOUL");

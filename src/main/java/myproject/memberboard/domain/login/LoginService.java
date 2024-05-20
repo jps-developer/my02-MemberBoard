@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import myproject.memberboard.domain.member.Member;
 import myproject.memberboard.domain.member.repository.MemberRepository;
 import myproject.memberboard.domain.member.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
