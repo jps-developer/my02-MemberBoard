@@ -19,6 +19,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void join(Member member) {
         validateDuplicateMember(member.getLoginId());
+        log.info("@@@@@@@service join member@@@@@@={}",member);
         memberRepository.save(member);
     }
 

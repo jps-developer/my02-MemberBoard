@@ -2,6 +2,7 @@ package myproject.memberboard.domain.board.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import myproject.memberboard.domain.board.Board;
+import myproject.memberboard.web.form.BoardForm;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -40,16 +41,11 @@ public class MemoryBoardRepository implements BoardRepository{
     }
 
     @Override
-    public Optional<Board> update(String author, Board param) {
-        if(findByAuthor(author).isPresent()){
-            Board updateBoard = findByAuthor(author).get();
-            updateBoard.setTitle(param.getTitle());
-            updateBoard.setContents(param.getContents());
-            updateBoard.setBoardTypeCode(param.getBoardTypeCode());
-            return Optional.of(updateBoard);
-        }else{
-            return Optional.empty();
-        }
+    public void update(String author, BoardForm param) {
+        Board updateBoard = findByAuthor(author).get();
+        updateBoard.setTitle(param.getTitle());
+        updateBoard.setContents(param.getContents());
+        updateBoard.setBoardTypeCode(param.getBoardTypeCode());
     }
 
     @Override

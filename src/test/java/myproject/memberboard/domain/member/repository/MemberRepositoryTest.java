@@ -67,10 +67,6 @@ class MemberRepositoryTest {
         //then
         assertThat(members.size()).isEqualTo(2);
     }
-/*    void test(String itemName, Integer maxPrice, Item... items) {
-        List<Item> result = itemRepository.findAll(new ItemSearchCond(itemName, maxPrice));
-        assertThat(result).containsExactly(items);
-    }*/
 
     @Test
     void update() {
@@ -85,11 +81,11 @@ class MemberRepositoryTest {
         memberRepository.save(memberA);
 
         // when
+        List<Member> members = memberRepository.findAll();
         Member saveMember = memberRepository.findByLoginId("testA").get();
         UpdateMemberForm form = new UpdateMemberForm();
         form.setRegionTypeCode("SEOUL");
         memberRepository.update(saveMember.getMemberId(), form);
-        log.info("memberA_Id={} , saveMember_Id={}",memberA.getMemberId(), saveMember.getMemberId());
         // then
         Member updateMember = memberRepository.findById(saveMember.getMemberId()).get();
         assertThat(updateMember.getRegionTypeCode()).isEqualTo(form.getRegionTypeCode());

@@ -1,11 +1,10 @@
-package myproject.memberboard.domain.config;
+package myproject.memberboard.domain.config.member;
 
 import lombok.RequiredArgsConstructor;
 import myproject.memberboard.domain.board.repository.BoardRepository;
 import myproject.memberboard.domain.board.repository.MemoryBoardRepository;
 import myproject.memberboard.domain.board.service.BoardServiceImpl;
 import myproject.memberboard.domain.login.LoginService;
-import myproject.memberboard.domain.member.repository.JDBCMemberRepository;
 import myproject.memberboard.domain.member.repository.MemberRepository;
 import myproject.memberboard.domain.member.repository.mybatis.MemberMapper;
 import myproject.memberboard.domain.member.repository.mybatis.MybatisMemberRepository;
@@ -15,12 +14,10 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
 @Configuration
 @RequiredArgsConstructor
 @MapperScan("myproject.memberboard.domain.member.repository.mybatis")
-public class MybatisConfig {
+public class MybatisMemberConfig {
 
     private final MemberMapper memberMapper;
     @Bean

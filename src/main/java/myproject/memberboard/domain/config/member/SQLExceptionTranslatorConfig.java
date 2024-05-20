@@ -1,13 +1,12 @@
-package myproject.memberboard.domain.config;
+package myproject.memberboard.domain.config.member;
 
 import lombok.RequiredArgsConstructor;
 import myproject.memberboard.domain.board.repository.BoardRepository;
 import myproject.memberboard.domain.board.repository.MemoryBoardRepository;
 import myproject.memberboard.domain.board.service.BoardServiceImpl;
 import myproject.memberboard.domain.login.LoginService;
-import myproject.memberboard.domain.member.repository.JDBCMemberRepository;
-import myproject.memberboard.domain.member.repository.SQLExceptionTranslatorMemberRepository;
 import myproject.memberboard.domain.member.repository.MemberRepository;
+import myproject.memberboard.domain.member.repository.SQLExceptionTranslatorMemberRepository;
 import myproject.memberboard.domain.member.service.MemberService;
 import myproject.memberboard.domain.member.service.MemberServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -17,12 +16,12 @@ import javax.sql.DataSource;
 
 @Configuration
 @RequiredArgsConstructor
-public class JDBCTemplateConfig {
+public class SQLExceptionTranslatorConfig {
 
     private final DataSource dataSource;
     @Bean
     MemberRepository memberRepository(){
-        return new JDBCMemberRepository(dataSource);
+        return new SQLExceptionTranslatorMemberRepository(dataSource);
     }
     @Bean
     MemberService memberService(){
