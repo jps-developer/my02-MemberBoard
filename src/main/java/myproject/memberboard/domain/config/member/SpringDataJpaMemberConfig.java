@@ -28,14 +28,6 @@ public class SpringDataJpaMemberConfig {
         return new MemberServiceImpl(memberRepository());
     }
     @Bean
-    BoardRepository boardRepository(){
-        return new MemoryBoardRepository();
-    }
-    @Bean
-    BoardServiceImpl boardService(){
-        return new BoardServiceImpl(boardRepository());
-    }
-    @Bean
     LoginService loginService(){
         return new LoginService(memberRepository());
     }

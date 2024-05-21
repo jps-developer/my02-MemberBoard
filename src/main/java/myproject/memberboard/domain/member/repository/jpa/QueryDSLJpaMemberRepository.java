@@ -79,7 +79,8 @@ public class QueryDSLJpaMemberRepository implements MemberRepository {
 
     @Override
     public boolean delete(Long id) {
-        em.remove(id);
+        Member deleteMember = findById(id).get();
+        em.remove(deleteMember);
         return true;
     }
 }
