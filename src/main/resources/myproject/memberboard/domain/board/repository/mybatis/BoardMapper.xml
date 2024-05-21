@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.memberboard.domain.board.repository.mybatis.BoardMapper">
+
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into board (author, title, contents, board_type_code)
+        values (#{author}, #{title}, #{contents}, #{boardTypeCode})
+    </insert>
+
+    <select id="findAll" resultType="Board">
+        select *
+        from board
+    </select>
+
+    <select id="findByAuthor" resultType="Board">
+        select *
+        from board
+        where author = #{author}
+    </select>
+
+    <select id="findById" resultType="Board">
+        select *
+        from board
+        where id  = #{id}
+    </select>
+
+    <update id="update">
+        update board
+        set board_type_code = #{param.boardTypeCode}, title = #{param.title}, contents = #{param.contents}
+        where author = #{author}
+    </update>
+
+    <delete id="delete">
+        delete board
+        where id = #{id}
+    </delete>
+
+</mapper>

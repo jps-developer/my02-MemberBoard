@@ -2,6 +2,7 @@ package myproject.memberboard;
 
 import myproject.memberboard.domain.board.repository.BoardRepository;
 import myproject.memberboard.domain.config.board.JDBCBoardConfig;
+import myproject.memberboard.domain.config.board.MybatisBoardConfig;
 import myproject.memberboard.domain.config.member.JDBCMemberTemplateConfig;
 import myproject.memberboard.domain.config.member.MybatisMemberConfig;
 import myproject.memberboard.domain.config.member.QueryDSLMemberConfig;
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.Profile;
 //@Import(JpaConfig.class)
 //@Import(SpringDataJpaConfig.class)
 //@Import(QueryDSLMemberConfig.class)
-@Import({JDBCMemberTemplateConfig.class, JDBCBoardConfig.class})
+@Import({MybatisMemberConfig.class, MybatisBoardConfig.class})
 @SpringBootApplication(scanBasePackages = "myproject.memberboard.web")
 public class MemberboardApplication {
 

@@ -34,10 +34,7 @@ class BoardRepositoryTest {
 
         //when
         boardRepository.save(board);
-        List<Board> boards = boardRepository.findAll();
-        for (Board board1 : boards) {
-            log.info("boards={}",board1.toString());
-        }
+        log.info("boards={}",board.toString());
 
         //then
         Board findBoard = boardRepository.findById(board.getId()).get();

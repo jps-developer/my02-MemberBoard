@@ -1,8 +1,10 @@
-package myproject.memberboard.domain.config.member;
+package myproject.memberboard.domain.config.board;
 
 import lombok.RequiredArgsConstructor;
 import myproject.memberboard.domain.board.repository.BoardRepository;
 import myproject.memberboard.domain.board.repository.MemoryBoardRepository;
+import myproject.memberboard.domain.board.repository.mybatis.BoardMapper;
+import myproject.memberboard.domain.board.repository.mybatis.MybatisBoardRepository;
 import myproject.memberboard.domain.board.service.BoardServiceImpl;
 import myproject.memberboard.domain.login.LoginService;
 import myproject.memberboard.domain.member.repository.MemberRepository;
@@ -16,21 +18,16 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-@MapperScan("myproject.memberboard.domain.member.repository.mybatis")
-public class MybatisMemberConfig {
+@MapperScan("myproject.memberboard.domain.board.repository.mybatis")
+public class MybatisBoardConfig {
 
-    private final MemberMapper memberMapper;
+    private final BoardMapper boardMapper;
     @Bean
-    MemberRepository memberRepository(){
-        return new MybatisMemberRepository(memberMapper);
+    BoardRepository boardRepository(){
+        return new MybatisBoardRepository(boardMapper);
     }
     @Bean
-    MemberService memberService(){
-        return new MemberServiceImpl(memberRepository());
-    }
-
-    @Bean
-    LoginService loginService(){
-        return new LoginService(memberRepository());
+    BoardServiceImpl boardService(){
+        return new BoardServiceImpl(boardRepository());
     }
 }
