@@ -19,9 +19,6 @@ public class JpaMemberConfig {
 
     private final EntityManager em;
 
-//    //public JpaConfig(EntityManager em) {
-//        this.em = em;
-//    }
 
     @Bean
     MemberRepository memberRepository(){
@@ -31,14 +28,7 @@ public class JpaMemberConfig {
     MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
     }
-    @Bean
-    BoardRepository boardRepository(){
-        return new MemoryBoardRepository();
-    }
-    @Bean
-    BoardServiceImpl boardService(){
-        return new BoardServiceImpl(boardRepository());
-    }
+
     @Bean
     LoginService loginService(){
         return new LoginService(memberRepository());

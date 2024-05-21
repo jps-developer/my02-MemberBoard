@@ -24,7 +24,7 @@ class BoardRepositoryTest {
     BoardRepository boardRepository;
 
     @Test
-    void save() {
+    void 저장_ID로찾기() {
         //given
         Board board = new Board();
         board.setAuthor("kim");
@@ -43,7 +43,7 @@ class BoardRepositoryTest {
     }
 
     @Test
-    void findAll() {
+    void 전체조회_삭제() {
         //given
         Board board1 = new Board();
         board1.setAuthor("kim");
@@ -59,14 +59,15 @@ class BoardRepositoryTest {
         boardRepository.save(board2);
 
         //when
+        boardRepository.delete("kim");
         List<Board> boards = boardRepository.findAll();
 
         //then
-        assertThat(boards.size()).isEqualTo(2);
+        assertThat(boards.size()).isEqualTo(1);
     }
 
     @Test
-    void update() {
+    void 수정_작성자로찾기() {
         //given
         Board board = new Board();
         board.setAuthor("kim");

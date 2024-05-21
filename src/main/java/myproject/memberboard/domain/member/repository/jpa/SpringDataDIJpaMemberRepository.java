@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import myproject.memberboard.domain.member.Member;
 import myproject.memberboard.domain.member.repository.MemberRepository;
 import myproject.memberboard.web.form.UpdateMemberForm;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Transactional
 @RequiredArgsConstructor
+@Repository
 public class SpringDataDIJpaMemberRepository implements MemberRepository {
 
     private final SpringDataJpaMemberRepository repository;

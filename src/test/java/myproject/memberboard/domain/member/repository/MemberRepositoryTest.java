@@ -24,7 +24,7 @@ class MemberRepositoryTest {
     MemberRepository memberRepository;
 
     @Test
-    void save() {
+    void 저장_ID로찾기() {
         //give
         Member memberA = new Member();
 
@@ -42,7 +42,7 @@ class MemberRepositoryTest {
     }
 
     @Test
-    void findAll() {
+    void 전체조회_삭제() {
         //give
         Member memberA = new Member();
         Member memberB = new Member();
@@ -62,14 +62,15 @@ class MemberRepositoryTest {
         memberRepository.save(memberB);
 
         // when
+        memberRepository.delete(memberA.getMemberId());
         List<Member> members = memberRepository.findAll();
 
         //then
-        assertThat(members.size()).isEqualTo(2);
+        assertThat(members.size()).isEqualTo(1);
     }
 
     @Test
-    void update() {
+    void 수정_로그인ID로찾기() {
         //give
         Member memberA = new Member();
         memberA.setLoginId("testA");

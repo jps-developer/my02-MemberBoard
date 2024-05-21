@@ -1,25 +1,34 @@
 package myproject.memberboard.domain.board.repository.jpa;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import myproject.memberboard.domain.board.Board;
+import myproject.memberboard.domain.board.QBoard;
 import myproject.memberboard.domain.board.repository.BoardRepository;
 import myproject.memberboard.web.form.BoardForm;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-@Repository // jpa 에서 발생하는 PersistenceException을 추상화를 통해 DataAccessException으로 변환한다.
-@Transactional // 서비스 계층에서 걸어주는게 정석이지만 비지니스로직이 엄청 간단하기때문에 repository에 걸어줌
+import static myproject.memberboard.domain.board.QBoard.*;
+
+@Repository
+@Transactional
 @RequiredArgsConstructor
-public class JpaBoardRepository implements BoardRepository {
+public class QueryDSLJpaBoardRepository implements BoardRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory query;
 
+    public QueryDSLJpaBoardRepository(EntityManager em) {
+        this.em = em;
+        this.query = new JPAQueryFactory(em);
+    }
 
     @Override
     public void save(Board board) {
@@ -28,24 +37,24 @@ public class JpaBoardRepository implements BoardRepository {
 
     @Override
     public List<Board> findAll() {
-        String jpql = "select b from Board b";
-        TypedQuery<Board> query = em.createQuery(jpql, Board.class);
-        return query.getResultList();
+        return query.select(board)
+                .from(board)
+                .fetch();
     }
 
     @Override
     public Optional<Board> findById(Long id) {
-        Board findBoard = em.find(Board.class, id);
-        return Optional.ofNullable(findBoard);
+        Board board = em.find(Board.class, id);
+        return Optional.ofNullable(board);
     }
 
     @Override
     public Optional<Board> findByAuthor(String author) {
-        String jpql = "select b from Board b where author = :author";
-        TypedQuery<Board> query = em.createQuery(jpql, Board.class);
-        query.setParameter("author", author);
-        Board findBoard = query.getSingleResult();
-        return Optional.of(findBoard);
+        Board findBoard = query.select(board)
+                .from(board)
+                .where(board.author.eq(author))
+                .fetchOne();
+        return Optional.ofNullable(findBoard);
     }
 
     @Override

@@ -1,11 +1,8 @@
 package myproject.memberboard;
 
 import myproject.memberboard.domain.board.repository.BoardRepository;
-import myproject.memberboard.domain.config.board.JDBCBoardConfig;
-import myproject.memberboard.domain.config.board.MybatisBoardConfig;
-import myproject.memberboard.domain.config.member.JDBCMemberTemplateConfig;
-import myproject.memberboard.domain.config.member.MybatisMemberConfig;
-import myproject.memberboard.domain.config.member.QueryDSLMemberConfig;
+import myproject.memberboard.domain.config.board.*;
+import myproject.memberboard.domain.config.member.*;
 import myproject.memberboard.domain.member.repository.MemberRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +18,7 @@ import org.springframework.context.annotation.Profile;
 //@Import(JpaConfig.class)
 //@Import(SpringDataJpaConfig.class)
 //@Import(QueryDSLMemberConfig.class)
-@Import({MybatisMemberConfig.class, MybatisBoardConfig.class})
+@Import({QueryDSLMemberConfig.class, QueryDSLBoardConfig.class})
 @SpringBootApplication(scanBasePackages = "myproject.memberboard.web")
 public class MemberboardApplication {
 
