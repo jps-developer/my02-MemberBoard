@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MemberService {
 
-    void join(Member member);
+    Member join(Member member);
     List<Member> findAllMember();
     Member findById(Long id);
     Member findByLoginId(String loginId);

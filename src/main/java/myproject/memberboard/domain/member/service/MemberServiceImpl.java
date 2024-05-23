@@ -17,10 +17,10 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
     @Override
-    public void join(Member member) {
+    public Member join(Member member) {
         validateDuplicateMember(member.getLoginId());
-        log.info("@@@@@@@service join member@@@@@@={}",member);
         memberRepository.save(member);
+        return findByLoginId(member.getLoginId());
     }
 
     private void validateDuplicateMember(String loginId){
@@ -34,14 +34,20 @@ public class MemberServiceImpl implements MemberService{
         return memberRepository.findAll();
     }
 
-    @Override
+/*    @Override
     public Member findById(Long id) {
         if(memberRepository.findById(id).isPresent()){
             return memberRepository.findById(id).get();
         }else{
             throw new MemberNotFoundException(id + " : 는 존재 하지않는 회원입니다.");
         }
-    }
+    }*/
+@Override
+public Member findById(Long id) {
+    return memberRepository.findById(id)
+            .orElseThrow(() -> new MemberNotFoundException(id + " : 는 존재 하지않는 회원입니다."));
+}
+
 
     @Override
     public Member findByLoginId(String loginId) {
