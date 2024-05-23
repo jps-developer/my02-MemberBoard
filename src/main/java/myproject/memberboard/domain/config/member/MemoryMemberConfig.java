@@ -11,10 +11,8 @@ import myproject.memberboard.domain.member.service.MemberServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
 @Configuration
-public class MemoryRepositoryConfig {
+public class MemoryMemberConfig {
 
     @Bean
     MemberRepository memberRepository(){
@@ -23,14 +21,6 @@ public class MemoryRepositoryConfig {
     @Bean
     MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
-    }
-    @Bean
-    BoardRepository boardRepository(){
-        return new MemoryBoardRepository();
-    }
-    @Bean
-    BoardServiceImpl boardService(){
-        return new BoardServiceImpl(boardRepository());
     }
 
     @Bean

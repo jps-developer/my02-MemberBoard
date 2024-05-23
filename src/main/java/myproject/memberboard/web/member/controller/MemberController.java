@@ -68,7 +68,7 @@ public class MemberController {
             log.info("errors={}",bindingResult);
             return "/members/joinMemberForm";
         }
-        memberService.join(member);
+        Member joinMember = memberService.join(member);
         //redirectAttributes.addAttribute("id",member.getMemberId());
         return "redirect:/";
         //return "redirect:/members/member/{id}";

@@ -1,4 +1,4 @@
-package myproject.memberboard;
+package myproject.memberboard.web;
 
 import myproject.memberboard.web.interceptor.LogInterceptor;
 import myproject.memberboard.web.interceptor.LoginCheckInterceptor;
@@ -19,6 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/members/join", "/login", "/logout", "/css/**", "/error", "/*.ico");
+                .excludePathPatterns("/", "/members/join", "/login", "/logout", "/css/**", "/error", "/*.ico","/api/**");
     }
 }
